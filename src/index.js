@@ -37,6 +37,8 @@ document.getElementById("listSwitch")
     listSwitchInput.checked = !listSwitchInput.checked
     const coloumns = listSwitchInput.checked ? "1" : "auto-fit"
     listContainer.style.gridTemplateColumns = `repeat(${coloumns}, minmax(240px, 1fr))`
+    listContainer.style.width = listSwitchInput.checked ? "24rem": "auto"
+    document.getElementById("firstHalf").style.flex = listSwitchInput.checked ? "0": "6"
 })
 
 findRoomBtn.addEventListener(
