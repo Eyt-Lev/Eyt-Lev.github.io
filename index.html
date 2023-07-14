@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <link
+    href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+  <link rel="stylesheet" href="main.css?ver=1" />
+
+  <head>
+    <meta name="google-site-verification" content="YkxglxW5AOep08650Damy6AhtLsCgdkqjaDWzAJJZ0E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosh Rooms</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo_round.png" />
+  </head>
+
+  <body>
+    <section class="headerSection">
+      <h1>Rooms list</h1>
+    </section>
+
+    <section class="firstsection">
+      <div class="firstHalf">
+        <div id="RoomsList" class="RoomsList"></div>
+      </div>
+      <div class="secondHalf">
+        <div class="searchDiv">
+          <label
+            class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label searchTextField"
+          >
+            <span class="mdc-text-field__ripple"></span>
+            <input
+              class="mdc-text-field__input"
+              type="number"
+              placeholder="Search Room"
+              aria-label="Label"
+              onkeydown="if(event.key==='.'){event.preventDefault();}"
+              oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+              id="roomTextFeild"
+            />
+            <span class="mdc-line-ripple"></span>
+          </label>
+
+          <button
+            class="mdc-button mdc-button--raised mdc-button--leading searchBtn"
+            id="FindRoomBtn"
+          >
+            <span class="mdc-button__ripple"></span>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">
+              search
+            </i>
+            <span class="mdc-button__label"> Search </span>
+          </button>
+        </div>
+
+        <div class="listSwitch" id="listSwitch">
+          <label class="switchLabel">List display</label>
+          <label class="switch">
+            <input type="checkbox" id="listSwitchInput">
+            <span class="slider round"></span>
+          </label>    
+        </div>
+
+      </div>
+
+    </section>
+
+    <footer class="background">
+      <p class="text-footer">
+        © Copyright-All rights reserved - Eytam Levine - Appchi
+      </p>
+    </footer>
+  </body>
+
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script src="/dist/main.js?ver=1"></script>
+</html>

@@ -1,0 +1,238 @@
+@font-face {
+    font-family: 'Roboto Black';
+    src: url('assets/fonts/roboto/Roboto-Black.ttf') format('truetype');
+    font-weight: bolder;
+    font-style: bolder;
+}
+  
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    color-scheme: dark light;
+}
+
+body {
+    background-color: rgba(230, 12, 12, 0.74);
+    font-family: 'Roboto';
+}
+ 
+.headerSection {
+    display: flex;
+    justify-content: center;
+}
+
+.firstHalf{
+    margin-right: 1rem;
+    flex: 6;
+}
+
+.secondHalf{
+    flex: 2;
+}
+
+h1 {
+    font-family: 'Roboto Black';
+    font-size: 3rem;
+    text-shadow: 3px 4px 8px rgba(31, 31, 31, 0.53);
+    color: white;
+    margin: 2%;
+}
+
+.RoomsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.5rem;
+}
+
+  
+.info {
+    height: 2rem;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: row;
+
+    color: white;
+    font-family: 'Roboto Black';
+    background: rgba(255, 148, 148, 0.4);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.1px);
+    border: 1px solid rgba(243, 159, 159, 1);
+    
+    cursor: pointer;
+}
+
+.info:hover {
+    background: rgba(250, 227, 227, 0.37);
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgb(250, 227, 227);
+}
+
+.info__circle{
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem; 
+    background-color: #be2424;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-left: 0.4rem;
+}
+
+.info__title {
+    margin-left: 0.4rem;
+    font-size: 1.5rem;
+}
+  
+.info__place {
+    font-size: 18px;
+    color: #680202;
+    font-family: "Roboto";
+    line-height: 32px;
+}
+  
+.info__points {
+    margin-left: auto;
+    font-size: 24px;
+}
+  
+.text-footer {
+    text-align: center;
+    padding: 30px 0;
+    font-family: 'Roboto';
+    display: flex;
+    justify-content: center;
+}
+
+.searchDiv{
+    display: grid;
+    grid-template: 1fr / 1fr;
+    width: 96%;
+    gap: 0.5rem;
+    margin-top: 2%;
+}
+
+.mdc-button.mdc-button--leading{
+    background-color: #9b0a0a9a;
+    justify-content: start;
+}
+
+.searchTextField {
+    height: 3.3rem;
+}
+
+.searchBtn {
+    height: 3.3rem;
+}
+
+.listSwitch {
+    display: flex;
+    height: 3.1rem;
+    margin-top: 0.5rem;
+    align-items: center;
+    border: 2px solid #f1a3a39a;
+    border-radius: 0.5rem;
+    width: 96%;
+}
+
+.listSwitch:hover {
+    cursor: pointer;
+    background-color: #e779796b;
+    border: 2px solid #f0c0c0;
+}
+
+.switchLabel{
+    margin-left: 0.6rem;
+}
+
+.switchLabel:hover{
+    cursor: pointer;
+}
+
+@media screen and (min-width: 800px) {
+    .firstsection{
+        display: flex;
+    }
+    .searchDiv {
+        margin-top: 0;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-left: auto;
+    margin-right: 2%;
+    border: 2px solid #d6cbcb;
+    border-radius: 34px;
+}
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color:#be2424;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #be2424;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
