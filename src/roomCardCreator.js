@@ -5,7 +5,7 @@ const listContainer = document.getElementById("RoomsList")
 
 export default function createCard(room, place){
     let roomCard = document.createElement("room_card");
-    roomCard.classList = "info"
+    roomCard.classList = "roomCard"
     roomCard.addEventListener(
       "click", () => {
         getRoom(room.number.toString(), alertRoom)
@@ -20,29 +20,29 @@ export default function createCard(room, place){
 }
 
 function addPlaceText(place, roomCard) {
-    var place_text = document.createElement("place_text");
-    place_text.classList.add("info__place");
+    var place_text = document.createElement("rcPlace");
+    place_text.classList.add("roomCard__place");
     place_text.textContent = place;
     roomCard.appendChild(place_text);
   }
   
   function addNumberText(number, roomCard) {
-    var numberText = document.createElement("number_text");
-    numberText.classList.add("info__title");
+    var numberText = document.createElement("rcNumber");
+    numberText.classList.add("roomCard__title");
     numberText.textContent = number;
     roomCard.appendChild(numberText);
   }
   
   function addPointsText(points, roomCard) {
-    var pointsText = document.createElement("info__points");
-    pointsText.classList.add("info__points");
+    var pointsText = document.createElement("rcPoints");
+    pointsText.classList.add("roomCard__points");
     pointsText.textContent = points;
     roomCard.appendChild(pointsText);
   }
   
   function addGradeText(grade, roomCard) {
-    var circle = document.createElement("grade_circle");
-    circle.classList.add("info__circle");
+    var circle = document.createElement("gradeCircle");
+    circle.classList.add("roomCard__circle");
     circle.textContent = grade;
     roomCard.appendChild(circle);
   }
