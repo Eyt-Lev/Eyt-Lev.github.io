@@ -14,7 +14,7 @@
 
   <head>
     <meta name="google-site-verification" content="YkxglxW5AOep08650Damy6AhtLsCgdkqjaDWzAJJZ0E" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="אתר חדרים של נוש בלה בלה בלה וזה">
     <title>Nosh Rooms</title>
     <link rel="icon" type="image/x-icon" href="assets/logo_round.png" />
   </head>
@@ -25,9 +25,33 @@
     </section>
 
     <section class="firstsection">
+      <div class="middleHalf">
+        <div class="gradeChecker">
+          all
+          <input type="checkbox" checked=true></input>
+        </div>
+        <div class="gradeChecker" grade=5>
+          5
+          <input type="checkbox"></input>
+        </div>
+        <div class="gradeChecker" grade=6>
+          6
+          <input type="checkbox"></input>
+        </div>
+        <div class="gradeChecker" grade=7>
+          7
+          <input type="checkbox"></input>
+        </div>
+        <div class="gradeChecker" grade=8>
+          8
+          <input type="checkbox"></input>
+        </div>
+      </div>
+
       <div class="firstHalf" id="firstHalf">
         <div id="RoomsList" class="RoomsList"></div>
       </div>
+
       <div class="secondHalf">
         <div class="searchDiv">
           <label
@@ -41,7 +65,7 @@
               aria-label="Label"
               onkeydown="if(event.key==='.'){event.preventDefault();}"
               oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
-              id="roomTextFeild"
+              id="roomTextField"
             />
             <span class="mdc-line-ripple"></span>
           </label>
@@ -63,7 +87,7 @@
           <label class="switch">
             <input type="checkbox" id="listSwitchInput">
             <span class="slider round"></span>
-          </label>    
+          </label>
         </div>
 
       </div>

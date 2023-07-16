@@ -9,12 +9,12 @@
 
     color: white;
     font-family: 'Roboto Black';
-    background: rgba(255, 148, 148, 0.4);
+    background: rgba(255, 148, 148, 0.219);
     border-radius: 4px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(11.1px);
     border: 1px solid rgba(243, 159, 159, 1);
-    
+
     cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
 .roomCard__circle{
     border-radius: 50%;
     width: 2rem;
-    height: 2rem; 
+    height: 2rem;
     background-color: #be2424;
     justify-content: center;
     text-align: center;
@@ -43,14 +43,14 @@
     margin-left: 0.4rem;
     font-size: 1.5rem;
 }
-  
+
 .roomCard__place {
     font-size: 18px;
-    color: #680202;
+    color: #3f0c0c;
     font-family: "Roboto";
     line-height: 32px;
 }
-  
+
 .roomCard__points {
     margin-left: auto;
     font-size: 24px;
