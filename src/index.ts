@@ -1,18 +1,20 @@
 import createCard from './roomCardCreator'
 import {getRoom, onRoomChange} from './firebaseRepo';
-import {MDCRipple} from '@material/ripple';
 import { DataSnapshot } from 'firebase/database';
 
-MDCRipple.attachTo(
-  document.querySelector('.mdc-button')!
-);
-
-const gradeCheckers: Array<Element> = Array.from(document.getElementsByClassName("gradeChecker"))
+const gradeCheckers: Element[] = Array.from(document.getElementsByClassName("gradeChecker"))
+const gradeCheckersContainer: HTMLElement = document.getElementById("gradeCheckers")!
 const listSwitchInput = document.getElementById("listSwitchInput") as HTMLInputElement
 const findRoomBtn = document.getElementById("FindRoomBtn")!
 const roomTextField = document.getElementById("roomTextField") as HTMLInputElement
-var rooms: Array<Room> = []
+var rooms: Room[] = []
 const listContainer = document.getElementById("RoomsList")!
+const roomsAndFilters = document.getElementById("roomsAndFilters")!
+const dialog = document.querySelector("dialog")!;
+const groupIcon = `<i class="fa-solid fa-user-group"></i>`
+const gradeIcon = `<i class="fa-solid fa-layer-group"></i>`
+const pointsIcon = `<i class="fa-solid fa-star"></i>`
+const placeIcon = `<i class="fa-solid fa-ranking-star"></i>`
 
 const gradeToString = new Map<number, string>([
   [5, "חמישית"],
@@ -22,30 +24,41 @@ const gradeToString = new Map<number, string>([
 ])
 
 export function alertRoom(room: Room){
-  alert(
-    `Room ${room.number}\n` +
-    `Points: ${room.points}\n` +
-    `Grade: ${gradeToString.get(room.grade)!}\n` +
-    `Members: ${room.members}`
-  )
+  const isNumbersEqual = (r: Room) => r.number == room.number
+  const place = rooms.findIndex(isNumbersEqual) + 1
+  dialog.showModal();
+  dialog.onclick = function(event) {
+    if (event.target == dialog) {
+      event.preventDefault();
+      dialog.close();
+    }
+  }
+  dialog.firstElementChild!.children[0].innerHTML =
+   `חדר ${room.number}`
+  dialog.firstElementChild!.children[1].innerHTML =
+  `ניקוד: ${room.points} ${pointsIcon}`
+  dialog.firstElementChild!.children[2].innerHTML =
+  `שכבה: ${gradeToString.get(room.grade)} ${gradeIcon}`
+  dialog.firstElementChild!.children[3].innerHTML =
+   `חברי החדר: ${room.members} ${groupIcon}`
+  dialog.firstElementChild!.children[4].innerHTML =
+   `מיקום: ${place} ${placeIcon}`
 }
 
-listSwitchInput.addEventListener(
-  'click', () => {
-    const columns = listSwitchInput.checked ? "1" : "auto-fit"
-    listContainer.style.gridTemplateColumns = `repeat(${columns}, minmax(240px, 1fr))`
-})
+listSwitchInput.onclick = () => {
+  onListDisplayToggle()
+}
 
-document.getElementById("listSwitch")!
-.addEventListener(
-  'click', () => {
-    listSwitchInput.checked = !listSwitchInput.checked
-    const columns = listSwitchInput.checked ? "1" : "auto-fit"
-    listContainer.style.gridTemplateColumns = `repeat(${columns}, minmax(240px, 1fr))`
-    listContainer.style.width = listSwitchInput.checked ? "24rem": "auto"
-    document.getElementById("firstHalf")!
-    .style.flex = listSwitchInput.checked ? "0": "6"
-})
+document.getElementById("listSwitch")!.onclick = () => {
+  onListDisplayToggle()
+  listSwitchInput.checked = !listSwitchInput.checked
+}
+
+function onListDisplayToggle(){
+  listContainer.classList.toggle("listDisplay")
+  gradeCheckersContainer.classList.toggle("listDisplay")
+  roomsAndFilters.classList.toggle("listDisplay")
+}
 
 findRoomBtn.addEventListener(
   'click', () => {

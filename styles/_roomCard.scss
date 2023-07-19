@@ -1,0 +1,53 @@
+@import './variables';
+
+
+.roomCard {
+	@include centeredFlex;
+	height: 2rem;
+	padding: 0.6rem;
+	max-width: 23rem;
+	flex-direction: row;
+	color: $color-on-surface;
+	font-family: $font-family_1;
+	font-weight: 500;
+	background: $color-surface-container-highest;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	&:hover {
+		background:
+			linear-gradient(
+				rgba($color-on-surface, 0.06),
+				rgba($color-on-surface, 0.06)
+			),
+			linear-gradient(
+				$color-surface-container-highest,
+				$color-surface-container-highest
+			);
+		box-shadow: 0 1.5px 10px rgba($color-shadow, 0.1);
+	}
+}
+
+.roomCard__circle {
+	border-radius: 50%;
+	width: 2rem;
+	height: 2rem;
+	justify-content: center;
+	text-align: center;
+	font-size: 1.5rem;
+	line-height: 2rem;
+	margin-left: 0.4rem;
+	color: white;
+}
+.roomCard__title {
+	margin-left: 0.4rem;
+	font-size: 1.5rem;
+}
+.roomCard__place {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 32px;
+}
+.roomCard__points {
+	margin-left: auto;
+	font-size: 24px;
+}

@@ -1,0 +1,270 @@
+@import './roomCard', './switch', './variables', './modal';
+
+html {
+	color-scheme: light;
+}
+
+body {
+    background:
+    linear-gradient(
+        rgba($color-surface-tint, 0.06),
+        rgba($color-surface-tint, 0.06)
+    ),
+    linear-gradient(
+        $color-surface-container,
+        $color-surface-container
+    );
+    font-family: $font-family_1;
+    padding: 0 2rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.headerSection {
+    @include centeredFlex;
+}
+
+.firstHalf {
+	flex: 3;
+}
+
+.secondHalf {
+	flex: 0;
+    height: fit-content;
+    margin-left: 2rem;
+    @include ifMobile{
+        margin-left: 0;
+        margin-top: 4%;
+    }
+}
+
+h1 {
+	font-family: $font-family_1;
+	font-size: 3rem;
+    font-weight: 800;
+	text-shadow: 1px 2px 2px rgba(31, 31, 31, 0.53);
+	color: $color-on-background;
+	margin: 0 0 1rem 0;
+    padding: 0;
+}
+
+.RoomsList {
+	display: inline-grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 0.5rem;
+    margin:0;
+
+    &.listDisplay{
+        grid-template-columns: repeat(1, minmax(240px, 1fr));
+    }
+}
+
+.text-footer {
+    @include centeredFlex;
+	padding: 30px 0;
+}
+
+.roomsAndFilters{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    &.listDisplay{
+        flex: 0;
+        margin-left: auto;
+    }
+}
+
+.searchDiv {
+    margin-top: 0;
+	display: grid;
+	grid-template: 1fr / 1fr;
+	gap: 0.5rem;
+}
+
+.searchBtn {
+    height: 2.5rem;
+    display: flex;
+    padding: 0.25rem 1rem 0.25rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: stretch;
+    color: $color-on-primary;
+    border-radius: 0.75rem;
+    background: $color-primary;
+    @include hoverCurser;
+    & label{
+        @include hoverCurser;
+        text-align: center;
+    }
+
+    &:hover{
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    }
+
+    &:active {
+        box-shadow: 0px 0px 0px 0px #ffffff00;
+        background: rgba($color-primary, 0.88);
+    }
+
+}
+
+.searchTextField {
+    display: flex;
+    height: 2.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+    align-self: stretch;
+    outline: 0.75px solid $color-outline;
+    font-size: 1rem;
+    border: none;
+    text-align: end;
+
+    &:focus{
+        outline: 2px solid $color-primary;
+        caret-color: $color-primary;
+        color: $color-on-surface;
+        &::placeholder{
+            color: $color-on-surface;
+            font-size: 1rem;
+        }
+    }
+
+    &::placeholder{
+        font-family: $font-family_1;
+        color: $color-on-surface-variant;
+        font-size: 1rem;
+    }
+
+    &:hover{
+        &:focus{
+            outline: 2px solid $color-primary;
+        }
+        outline: 0.75px solid $color-on-surface;
+    }
+}
+
+.listSwitch {
+    @include centeredFlex;
+	margin-top: 0.7rem;
+    @include hoverCurser;
+    @include ifMobile{
+        display: none;
+    }
+}
+
+.switchLabel {
+	margin-left: 0.6rem;
+    @include hoverCurser();
+}
+
+.gradeCheckers {
+    display: flex;
+    width: auto;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    gap: -0.0625rem;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+
+    @include ifMobile{
+        width: 100%;
+    }
+
+    &.listDisplay{
+        width: 24rem;
+    }
+}
+
+.gradeChecker {
+    @include centeredFlex;
+
+    height: 3rem;
+	border: 1.5px solid $color-outline;
+    flex: 1 0 0;
+
+	&:has(:checked) {
+		background-color: $color-secondary-container;
+		color: $color-on-secondary-container;
+        &:hover{
+            background:
+			linear-gradient(
+				rgba($color-on-surface, 0.08),
+				rgba($color-on-surface, 0.08)
+			),
+			linear-gradient(
+				$color-secondary-container,
+				$color-secondary-container
+			);
+        }
+        i {
+            display: block;
+            margin-right: 5%;
+            font-weight: 700;
+        }
+	}
+
+    @include hoverCurser();
+
+    $cornerRadius: 0.6rem;
+
+    &[grade="0"]{
+        border-radius: $cornerRadius 0rem 0rem $cornerRadius;
+    }
+
+    &[grade="8"]{
+        border-radius: 0rem $cornerRadius $cornerRadius 0rem;
+    }
+
+    i {
+        display: none;
+    }
+
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+    &:hover{
+        background:rgba($color-on-surface, 0.08);
+    }
+
+    @include ifMobile{
+        &:has(:checked) {
+            & i {
+                display: none;
+            }
+        }
+    }
+}
+
+@for $i from 0 to 5{
+    .gradeChecker:nth-child(#{$i + 1}) i{
+        color: map-get($gradeToColor, 4+$i);
+    }
+}
+
+.firstSection{
+    display: flex;
+    @include ifMobile{
+        display: block;
+    }
+}
+
+.container{
+    background: $color-surface-container;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.surface{
+    background: $color-surface-container-low;
+    padding: 1rem;
+    border-radius: 1rem;
+}

@@ -1,0 +1,69 @@
+$font-family_1: 'Heebo';
+$gradeToColor: (
+	5: #d21717,
+	6: #74d217,
+	7: #17d2d2,
+	8: #7417d2,
+	0: #000000,
+);
+
+@mixin ifMobile{
+    @media (max-width: 840px) {
+        @content;
+    }
+}
+
+$color-primary: #BE1604;
+$color-on-primary: #FFFFFF;
+$color-primary-container: #FFDAD4;
+$color-on-primary-container: #400200;
+
+$color-secondary: #775651;
+$color-on-secondary: #FFFFFF;
+$color-secondary-container: #FFDAD4;
+$color-on-secondary-container: #2C1511;
+
+$color-tertiary: #6F5C2E;
+$color-on-tertiary: #FFFFFF;
+$color-tertiary-container: #FAE0A6;
+$color-on-tertiary-container: #251A00;
+
+$color-error: #BA1A1A;
+$color-on-error: #FFFFFF;
+$color-error-container: #FFDAD6;
+$color-on-error-container: #410002;
+
+$color-outline: #857370;
+$color-outline-variant: #D8C2BE;
+$color-background: #FFFBFF;
+$color-on-background: #201A19;
+
+$color-surface: #FFFBFF;
+$color-on-surface: #201A19;
+$color-surface-variant: #F5DDD9;
+$color-on-surface-variant: #534340;
+$color-surface-inverse: #362F2D;
+$color-on-surface-inverse: #FBEEEB;
+$color-surface-tint: #BC1604;
+
+$color-primary-inverse: #FBEEEB;
+$color-shadow: #000000;
+$color-scrim: #000000;
+
+$color-surface-container-lowest: #ffffff;
+$color-surface-container-low: #fbeeeb;
+$color-surface-container: #f8e8e4;
+$color-surface-container-high: #ede0dd;
+$color-surface-container-highest: #f1deda;
+
+@mixin centeredFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin hoverCurser{
+    &:hover{
+        cursor: pointer;
+    }
+}
