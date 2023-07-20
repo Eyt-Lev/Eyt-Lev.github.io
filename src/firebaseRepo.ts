@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, child, get, onValue } from "firebase/database";
-import {Room} from "./index"
+import { getDatabase, ref, onValue } from "firebase/database";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC1UC_xroJ8P9sHvzeOCafXaehGRI77-_E",
@@ -16,24 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const roomsRef = ref(database, "Rooms")
-
-export function getRoom(number: string, onGet: Function){
-      get(child(roomsRef, number)).then((snapshot) => {
-        if (snapshot.exists()) {
-          const room: Room = {
-            grade: snapshot.child("grade").val(),
-            number: snapshot.child("number").val(),
-            points: snapshot.child("totalPoints").val(),
-            members: snapshot.child("members").val()
-          }
-          onGet(room)
-        } else {
-          alert('This room does not exists!');
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-}
+const analytics = getAnalytics(app);
 
 export function onRoomChange(doOnChange: Function){
   onValue(roomsRef, (snapshot) => {

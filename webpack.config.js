@@ -5,8 +5,8 @@ module.exports = {
   entry: {
     app :[
       './src/index.ts',
-      './src/roomCardCreator.ts',
       './src/firebaseRepo.ts',
+      './src/documentStuff.ts',
     ]
   },
   module: {

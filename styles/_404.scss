@@ -1,0 +1,43 @@
+@import './variables';
+
+.body404{
+    margin-top: 1rem;
+    padding: 0;
+}
+
+.header404{
+    @include centeredFlex;
+    flex-direction: column;
+    margin: 0 20%;
+}
+
+.errIcon{
+    font-size: 6rem;
+}
+
+.title404{
+    margin: 0;
+    font-size: 4.5em;
+    font-weight: 900;
+    text-align: center;
+    line-clamp: 1;
+}
+
+.p404{
+    margin: 0 4%;
+    margin-bottom: 0.3rem;
+    text-align: center;
+    font-size: 1.6em;
+}
+
+@media (max-width: 650px){
+    .title404{
+        font-size: 3.5em;
+    }
+    .header404{
+        margin: 0 5%;
+    }
+    .p404{
+        font-size: 1.4em;
+    }
+}

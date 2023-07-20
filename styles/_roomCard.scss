@@ -25,6 +25,9 @@
 			);
 		box-shadow: 0 1.5px 10px rgba($color-shadow, 0.1);
 	}
+	@include ifMobile{
+		max-width: 100%;
+	}
 }
 
 .roomCard__circle {
