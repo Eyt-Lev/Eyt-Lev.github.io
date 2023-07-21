@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="iw">
-  <link rel="stylesheet" href="styles/css/main.css?ver=2" />
+  <link rel="stylesheet" href="styles/css/main.css?ver=4" />
 
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="YkxglxW5AOep08650Damy6AhtLsCgdkqjaDWzAJJZ0E" />
     <meta name="description" content="אתר חדרים של נוש בלה בלה בלה וזה">
     <meta charset="UTF-8">
@@ -12,71 +13,105 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   </head>
 
-  <img>
+  <body>
     <section class="headerSection">
       <h1>רשימת חדרים</h1>
     </section>
-
 
     <section class="firstSection">
 
       <div class="roomsAndFilters surface" id="roomsAndFilters">
         <div class="gradeCheckers" id="gradeCheckers">
-          <div class="gradeChecker" grade=0>
+          <div class="gradeChecker" grade=0 title="ללא סינון" aria-label="ללא סינון">
             <input type="checkbox" checked=true></input>
+            הכל
             <i class="fa-solid fa-check"></i>
-            all
           </div>
-          <div class="gradeChecker" grade=5>
+          <div class="gradeChecker" grade=5 title="חמישית" aria-label="חמישית">
             <input type="checkbox"></input>
-            <i class="fa-solid fa-check"></i>
             5
-          </div>
-          <div class="gradeChecker" grade=6>
-            <input type="checkbox"></input>
             <i class="fa-solid fa-check"></i>
+          </div>
+          <div class="gradeChecker" grade=6 title="שישית" aria-label="שישית">
+            <input type="checkbox"></input>
             6
-          </div>
-          <div class="gradeChecker" grade=7>
-            <input type="checkbox"></input>
             <i class="fa-solid fa-check"></i>
+          </div>
+          <div class="gradeChecker" grade=7 title="שביעית" aria-label="שביעית">
+            <input type="checkbox"></input>
             7
-          </div>
-          <div class="gradeChecker" grade=8>
-            <input type="checkbox"></input>
             <i class="fa-solid fa-check"></i>
+          </div>
+          <div class="gradeChecker" grade=8 title="שמינית" aria-label="שמינית">
+            <input type="checkbox"></input>
             8
+            <i class="fa-solid fa-check"></i>
           </div>
         </div>
 
           <div id="RoomsList" class="RoomsList"></div>
       </div>
 
-      <div class="secondHalf container" id="secondHalf">
-        <div class="searchDiv">
-          <input
-            class="searchTextField"
-            placeholder="חפש חדר"
-            aria-label="חפש חדר"
-            onkeydown="if(event.key==='.'){event.preventDefault();}"
-            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
-            id="roomTextField"
-          />
+      <div class="containers">
+        <div class="container">
+          <span class="container_title">החדר שלך</span>
 
-          <div class="btn" id="FindRoomBtn">
-            <label> חיפוש </label>
-            <i class="fa-solid fa-magnifying-glass"></i>
+          <div id="userRoomSection">
+            <div class="roomCard" id="userRoom" style="display: none;">
+              <div class="roomCard__place">3</div>
+              <div class="roomCard__circle" style="background-color: #d21717;">6</div>
+              <div class="roomCard__title">42</div>
+              <div class="roomCard__points">34</div>
+            </div>
           </div>
 
+          <div class="divider"></div>
+
+          <div id="chooseRoomSection">
+            <input
+              class="textField"
+              placeholder="קבע חדר"
+              aria-label="קבע חדר"
+              onkeydown="if(event.key==='.'){event.preventDefault();}"
+              oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+              id="userRoomTextField"
+            />
+            <div class="button" style="margin-top: 0.5rem;" id="userRoomBtn">
+              בוצע
+              <i class="fa-solid fa-check"></i>
+            </div>
+          </div>
         </div>
 
-        <div class="listSwitch" id="listSwitch">
-          <label class="switch">
-            <input type="checkbox" id="listSwitchInput">
-            <span class="slider round"></span>
-          </label>
+        <div class="secondHalf container" id="secondHalf">
+          <div class="searchDiv">
+            <input
+              class="textField"
+              placeholder="חפש חדר"
+              aria-label="חפש חדר"
+              onkeydown="if(event.key==='.'){event.preventDefault();}"
+              oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+              id="roomTextField"
+            />
 
-          <label class="switchLabel">תצוגת רשימה</label>
+            <div class="button" id="FindRoomBtn">
+              <label> חיפוש </label>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+         </div>
+
+          <div class="divider" ></div>
+
+          <div class="listSwitch" id="listSwitch">
+            <label class="switch">
+              <input type="checkbox" id="listSwitchInput">
+              <span class="slider round"></span>
+            </label>
+
+            <label class="switchLabel">תצוגת רשימה</label>
+
+          </div>
 
         </div>
 
@@ -87,9 +122,7 @@
     <dialog aria-labelledby="dialog_title" aria-describedby="dialog_description">
       <div class="dialog-content">
         <h2 id="dialog_title" class="h2">חדר 432</h2>
-        <p id="dialog_description">
-          ניקוד: 34
-      </p>
+        <p id="dialog_description">ניקוד: 34</p>
         <p id="dialog_description">שכבה: חמישית</p>
         <p id="dialog_description">חברי החדר: בלה בלה בלה</p>
         <p id="dialog_description">מיקום: 3</p>
@@ -103,5 +136,5 @@
     </footer>
   </body>
 
-  <script src="/dist/main.js?ver=2"></script>
+  <script src="/dist/main.js?ver=4"></script>
 </html>

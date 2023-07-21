@@ -23,6 +23,9 @@ const dialog =
 document.querySelector("dialog")!;
 const listSwitch =
 document.getElementById("listSwitch")!
+const userRoomCard = document.getElementById("userRoom")!
+const userRoomTextField = document.getElementById("userRoomTextField") as HTMLInputElement
+const userRoomBtn = document.getElementById("userRoomBtn")!
 const gradeToColor = new Map<number, string>([
     [5, "#d21717"],
     [6, "#74d217"],
@@ -49,26 +52,31 @@ function onListDisplayToggle(){
     gradeCheckersContainer.classList.toggle("listDisplay")
     roomsAndFilters.classList.toggle("listDisplay")
 }
-export function alertRoom(room: Room){
-    const place = rooms.indexOf(room) + 1
-    dialog.showModal();
-    dialog.onclick = function(event) {
-      if (event.target == dialog) {
-        event.preventDefault();
-        dialog.close();
-      }
+export function alertRoom(room: Room | undefined){
+  if (room === undefined){
+    alert("החדר לא קיים!")
+    return
+  }
+  const place = rooms.indexOf(room) + 1
+  dialog.showModal();
+  dialog.onclick = (event) => {
+    if (event.target == dialog) {
+      event.preventDefault();
+      dialog.close();
     }
-    dialog.firstElementChild!.children[0].innerHTML =
-     `חדר ${room.number}`
-    dialog.firstElementChild!.children[1].innerHTML =
-    `ניקוד: ${room.points} ${getIconHtml("star")}`
-    dialog.firstElementChild!.children[2].innerHTML =
+  }
+  dialog.firstElementChild!.children[0].innerHTML =
+    `חדר ${room.number}`
+  dialog.firstElementChild!.children[1].innerHTML =
+  `ניקוד: ${room.points} ${getIconHtml("star")}`
+  dialog.firstElementChild!.children[2].innerHTML =
     `שכבה: ${gradeToString.get(room.grade)} ${getIconHtml("layer-group")}`
-    dialog.firstElementChild!.children[3].innerHTML =
-     `חברי החדר: ${room.members} ${getIconHtml("user-group")}`
-    dialog.firstElementChild!.children[4].innerHTML =
-     `מיקום: ${place} ${getIconHtml("ranking-star")}`
+  dialog.firstElementChild!.children[3].innerHTML =
+    `חברי החדר: ${room.members} ${getIconHtml("user-group")}`
+  dialog.firstElementChild!.children[4].innerHTML =
+    `מיקום: ${place} ${getIconHtml("ranking-star")}`
 }
+
 export function updateRoomList(dbSnapshot: DataSnapshot){
     rooms = []
     dbSnapshot.forEach(roomSnapshot => {
@@ -78,11 +86,41 @@ export function updateRoomList(dbSnapshot: DataSnapshot){
         points: roomSnapshot.child("totalPoints").val(),
         members: roomSnapshot.child("members").val()
       }
-
       rooms.push(room)
     });
-
     updateRoomListWithRooms(rooms)
+}
+function updateUserRoomCard(){
+  const userRoomNumber = localStorage.getItem("userRoomNumber")
+  if (userRoomNumber != null){
+    const userRoom = findRoom(parseInt(userRoomNumber))
+    if (userRoom !== undefined){
+      if(userRoomCard.parentElement!.children.length > 1)  userRoomCard.parentElement!.removeChild(userRoomCard.parentElement!.children[1])
+      userRoomTextField.placeholder = "שנה חדר"
+      userRoomCard.style.display = "flex"
+      userRoomCard.onclick = () => {alertRoom(userRoom)}
+      userRoomCard.ariaLabel = `חדר ${userRoom.number}`
+      userRoomCard.title = `חדר ${userRoom.number}`
+
+      userRoomCard.children[0].innerHTML = (rooms.indexOf(userRoom) + 1).toString()
+      userRoomCard.children[1].innerHTML = userRoom.grade.toString();
+      (userRoomCard.children[1] as HTMLElement)!.style.backgroundColor = gradeToColor.get(userRoom.grade)!;
+      userRoomCard.children[2].innerHTML = userRoom.number.toString()
+      userRoomCard.children[3].innerHTML = userRoom.points.toString()
+    } else {
+      const roomErrorTxt = document.createElement("div")
+      roomErrorTxt.innerHTML =  "אירעה שגיאה בטעינת החדר שלך, אנא נסה לקבוע מספר חדר חדש"
+      roomErrorTxt.style.alignSelf = "center"
+      roomErrorTxt.style.textAlign = "center"
+      userRoomCard.parentElement!.appendChild(roomErrorTxt)
+    }
+  } else {
+    const noRoomSelected = document.createElement("div")
+    noRoomSelected.innerHTML =  "לא קבעת חדר"
+    noRoomSelected.style.alignSelf = "center"
+    noRoomSelected.style.textAlign = "center"
+    userRoomCard.parentElement!.appendChild(noRoomSelected)
+  }
 }
 function addDummyRooms(){
   rooms.forEach(room => {
@@ -93,7 +131,7 @@ function addDummyRooms(){
   for (i;i < times;i++){
       const roomNumber = Math.floor(Math.random() * (5050 - 110) + 110)
       const roomPoints = Math.floor(Math.random() * (130 -(-20)) + (-20))
-      const roomGrade = Math.floor(Math.random() * (9 - 3) + 3)
+      const roomGrade = Math.floor(Math.random() * (9 - 5) + 5)
       rooms.push(
           {
               number: roomNumber,
@@ -105,21 +143,23 @@ function addDummyRooms(){
   }
 }
 function updateRoomListWithRooms(rooms: Array<Room>){
-    removeAllChildNodes(listContainer)
-    /*
-      REMOVE THIS AFTER TESTING
-    */
-    addDummyRooms()
-//  ^^^^^^^^^^^^^^^
+  /*
+  REMOVE THIS AFTER TESTING
+  */
+  addDummyRooms()
+ //  ^^^^^^^^^^^^^^^
 
-    //Sorting the rooms by points
-    rooms = rooms.sort((a, b) => a.points < b.points ? 1 : -1)
-    //Filtering grade to display
-    rooms
-    .filter(room => getSelectedGrades().includes(room.grade))
-    .forEach(function(room, place){
-      createCard(room, place)
-    })
+  removeAllChildNodes(listContainer)
+  //Sorting the rooms by points
+  rooms = rooms.sort((a, b) => a.points < b.points ? 1 : -1)
+  //Filtering grade to display
+  rooms
+  .filter(room => getSelectedGrades().includes(room.grade))
+  .forEach(function(room, place){
+    createCard(room, place)
+  })
+
+  updateUserRoomCard()
 }
 function getSelectedGrades(): Array<Number>{
     if (
@@ -176,6 +216,8 @@ function createCard(room: Room, place: number){
     roomCard.onclick = () => {
         alertRoom(room)
     }
+    roomCard.ariaLabel = `חדר ${room.number}`
+    roomCard.title = `חדר ${room.number}`
 
     addPlaceText(place + 1, roomCard)
     addGradeText(room.grade, roomCard)
@@ -209,14 +251,15 @@ function addGradeText(grade: number, roomCard: HTMLElement) {
   circle.style.backgroundColor = gradeToColor.get(grade)!
   roomCard.appendChild(circle);
 }
-
-
+function findRoom(roomNumber: number): Room | undefined{
+  const isNumbersEqual = (r: Room) => r.number == roomNumber
+  return rooms.find(isNumbersEqual)
+}
 
 listSwitchInput.onclick = onListDisplayToggle
 findRoomBtn.onclick = () => {
     if(roomTextField.value != ""){
-        const isNumbersEqual = (r: Room) => r.number == parseInt(roomTextField.value)
-        alertRoom(rooms.find(isNumbersEqual)!)
+        alertRoom(findRoom(parseInt(roomTextField.value)))
         roomTextField.value = ""
     }
 }
@@ -231,3 +274,17 @@ gradeCheckers.forEach(gradeChecker => {
         }
     )
 });
+userRoomBtn.onclick = () => {
+  const userInput = userRoomTextField.value
+  userRoomTextField.value = ""
+  if (userInput == ""){
+    return
+  }
+  const roomEntered = findRoom(parseInt(userInput))
+  if (roomEntered === undefined){
+    alert("החדר לא קיים!")
+    return
+  }
+  localStorage.setItem("userRoomNumber", userInput)
+  updateUserRoomCard()
+}

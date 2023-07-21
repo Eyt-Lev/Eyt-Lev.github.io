@@ -1,4 +1,4 @@
-@import './roomCard', './switch', './variables', './modal', './404', './button';
+@import './roomCard', './switch', './variables', './modal', './404', './components';
 
 html {
 	color-scheme: light;
@@ -25,6 +25,7 @@ body {
 
 .headerSection {
     @include centeredFlex;
+    margin: 1rem    ;
 }
 
 .firstHalf {
@@ -32,9 +33,18 @@ body {
 }
 
 .secondHalf {
-	flex: 0;
-    height: fit-content;
+    margin-top: 2rem;
+    @include ifMobile{
+        & .divider{
+            display: none;
+        }
+    }
+}
+
+.containers{
+    flex: 0;
     margin-left: 2rem;
+    gap: 5rem;
     @include ifMobile{
         margin-left: 0;
         margin-top: 4%;
@@ -47,8 +57,10 @@ h1 {
     font-weight: 800;
 	text-shadow: 1px 2px 2px rgba(31, 31, 31, 0.53);
 	color: $color-on-background;
-	margin: 0 0 1rem 0;
+	margin: 1rem 0;
     padding: 0;
+    line-height: 2rem;
+    text-align: center;
 }
 
 .RoomsList {
@@ -67,6 +79,7 @@ h1 {
 
 .text-footer {
     @include centeredFlex;
+    text-align: center;
 	padding: 30px 0;
 }
 
@@ -80,6 +93,10 @@ h1 {
     }
 }
 
+#chooseRoomSection{
+    display: grid;
+}
+
 .searchDiv {
     margin-top: 0;
 	display: grid;
@@ -87,47 +104,8 @@ h1 {
 	gap: 0.5rem;
 }
 
-.searchTextField {
-    display: flex;
-    height: 2.5rem;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 0;
-    border-radius: 0.25rem;
-    padding: 0.25rem 1rem;
-    align-self: stretch;
-    outline: 0.75px solid $color-outline;
-    font-size: 1rem;
-    border: none;
-    text-align: end;
-
-    &:focus{
-        outline: 2px solid $color-primary;
-        caret-color: $color-primary;
-        color: $color-on-surface;
-        &::placeholder{
-            color: $color-on-surface;
-            font-size: 1rem;
-        }
-    }
-
-    &::placeholder{
-        font-family: $font-family_1;
-        color: $color-on-surface-variant;
-        font-size: 1rem;
-    }
-
-    &:hover{
-        &:focus{
-            outline: 2px solid $color-primary;
-        }
-        outline: 0.75px solid $color-on-surface;
-    }
-}
-
 .listSwitch {
     @include centeredFlex;
-	margin-top: 0.7rem;
     @include hoverCurser;
     @include ifMobile{
         display: none;
@@ -181,7 +159,7 @@ h1 {
         }
         i {
             display: block;
-            margin-right: 5%;
+            margin-left: 5%;
             font-weight: 700;
         }
 	}
@@ -231,26 +209,5 @@ h1 {
     display: flex;
     @include ifMobile{
         display: block;
-    }
-}
-
-.container{
-    background: $color-surface-container;
-    padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
-    @include ifMobile{
-        padding: 0;
-        background: transparent;
-    }
-}
-
-.surface{
-    background: $color-surface-container-low;
-    padding: 1rem;
-    border-radius: 1rem;
-    @include ifMobile{
-        padding: 0.5rem;
-        // background: transparent;
     }
 }
